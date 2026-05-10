@@ -24,9 +24,8 @@ public class DeliveryService implements DeliveryServiceInterface {
   private final CourierRepository courierRepository;
   private final WarehouseRepository warehouseRepository;
 
-  // TODO: Завършете имплементацията на Constructor Injection-а на DeliveryService
-  // * В момента полето 'deliveryEstimator' е дефинирано, но не се иницилизира в конструктора
-  // * Добавете липсващото присвояване в конструктора
+
+
   private DeliveryEstimator deliveryEstimator;
 
   // DI-2. Constructor Injection - чрез добавяне на конструктор (препоръчителен начин в Spring)
@@ -42,6 +41,7 @@ public class DeliveryService implements DeliveryServiceInterface {
     this.deliveryRepository = deliveryRepository;
     this.courierRepository = courierRepository;
     this.warehouseRepository = warehouseRepository;
+    this.deliveryEstimator = deliveryEstimator;
   }
 
   // DI-3. Setter Injection - чрез добавяне на setter метод (използва се за
@@ -79,9 +79,10 @@ public class DeliveryService implements DeliveryServiceInterface {
       delivery.setDeliveryStatus(CREATED);
     }
 
-    // Довършване на имплементацията на метода deliveryEstimator.estimateArrivalTime(Delivery delivery);
+
     LocalDateTime estimatedArrivalAt = deliveryEstimator.estimateArrivalTime(delivery);
     delivery.setEstimatedArrivalAt(estimatedArrivalAt);
+    deliveryEstimator.estimateArrivalTime(delivery);
 
     deliveryRepository.save(delivery);
 

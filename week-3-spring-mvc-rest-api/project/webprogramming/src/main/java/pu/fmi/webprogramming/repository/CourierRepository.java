@@ -13,19 +13,28 @@ public class CourierRepository {
   private List<Courier> couriers = new ArrayList<>();
 
   public CourierRepository() {
-    couriers.add(new Courier(1L,"Ivan", "Ivanov", true, "Plovdiv"));
+    couriers.add(new Courier(1L, "Ivan", "Ivanov", true, "Plovdiv"));
     couriers.add(new Courier(2L, "Dragan", "Petkanov", true, "Sofia"));
   }
 
   public Courier findAvailableCourier() {
     Courier availableCourier =
-        couriers.stream()
-                .filter(courier -> courier.isAvailable())
-                .findFirst()
-                .orElse(null);
+            couriers.stream()
+                    .filter(courier -> courier.isAvailable())
+                    .findFirst()
+                    .orElse(null);
 
     return availableCourier;
   }
+  public Courier findById(long id) {
+     Courier courier = couriers.stream()
+            .filter(couriers -> couriers.getId().equals(id))
+            .findFirst()
+            .orElse(null);
+         return courier;
+  }
+
+
 
   public List<Courier> getAllCouriers() {
     return couriers;
